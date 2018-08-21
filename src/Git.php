@@ -128,7 +128,10 @@ class Git
      */
     protected function execute($command)
     {
-        $command = 'cd ' . escapeshellarg($this->repositoryPath) . '; git ' . $command . ' 2>&1';
+
+        $command_concatenator = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? '&' : ';';
+
+        $command = 'cd ' . escapeshellarg($this->repositoryPath) . $command_concatenator . ' git ' . $command . ' 2>&1';
  
         if (DIRECTORY_SEPARATOR == '/') {
             $command = 'LC_ALL=en_US.UTF-8 ' . $command;
